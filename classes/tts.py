@@ -121,12 +121,20 @@ class TextToSpeechService(AIModelService):
             new_scores = torch.zeros(size_difference, dtype=torch.float32)
             self.scores = torch.cat((self.scores, new_scores))
             del new_scores
-        g_prompts = c_prompt if c_prompt else self.load_prompts()
-        g_prompt = random.choice(g_prompts)
+
+
+        # Use the API prompt if available; otherwise, load prompts from HuggingFace
+        if c_prompt:
+            g_prompt = c_prompt  # Use the prompt from the API
+        else:
+            # Fetch prompts from HuggingFace if API failed
+            g_prompts = self.load_prompts()
+            g_prompt = random.choice(g_prompts)  # Choose a random prompt from HuggingFace
+
         while len(g_prompt) > 256:
             bt.logging.error(f'The length of current Prompt is greater than 256. Skipping current prompt.')
             g_prompt = random.choice(g_prompts)
-        if step % 20 == 0:
+        if step % 4 == 0:
             async with self.lock:
                 filtered_axons = self.get_filtered_axons_from_combinations()
                 bt.logging.info(f"Prompt are being used from HuggingFace Dataset for TTS at Step: {step}")
@@ -139,6 +147,7 @@ class TextToSpeechService(AIModelService):
                     self.last_reset_weights_block = self.current_block        
                     # set all nodes without ips set to 0
                     self.scores = self.scores * torch.Tensor([self.metagraph.neurons[uid].axon_info.ip != '0.0.0.0' for uid in self.metagraph.uids])
+                    
     def query_network(self,filtered_axons, prompt):
         # Network querying logic
         
