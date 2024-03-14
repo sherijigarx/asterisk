@@ -24,7 +24,7 @@ audio_subnet_path = os.path.abspath(project_root)
 # Add the project root and 'AudioSubnet' directories to sys.path
 sys.path.insert(0, project_root)
 sys.path.insert(0, audio_subnet_path)
-from classes.prompting import get_content
+from classes.prompting import get_TTS
 
 
 class TextToSpeechService(AIModelService):
@@ -103,8 +103,9 @@ class TextToSpeechService(AIModelService):
                 traceback.print_exc()
 
     async def main_loop_logic(self, step):
+        g_prompt = None
         try:
-            c_prompt = get_content()
+            c_prompt = get_TTS()
         except Exception as e:
             bt.logging.error(f"An error occurred while fetching prompt: {e}")
             c_prompt = None
