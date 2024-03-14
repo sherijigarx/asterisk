@@ -37,8 +37,8 @@ from classes.ttm import MusicGenerationService
 async def main():
     services = [
         TextToSpeechService(),
-        MusicGenerationService(),
-        VoiceCloningService(),
+        # MusicGenerationService(),
+        # VoiceCloningService(),
     ]
 
     # Initialize an empty list to hold our tasks

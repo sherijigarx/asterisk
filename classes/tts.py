@@ -17,6 +17,7 @@ import sys
 import wandb
 import datetime as dt
 import numpy as np
+from neurons.prompting import get_content
 # Set the project root path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 # Set the 'AudioSubnet' directory path
@@ -102,6 +103,11 @@ class TextToSpeechService(AIModelService):
                 traceback.print_exc()
 
     async def main_loop_logic(self, step):
+        try:
+            c_prompt = get_content()
+        except Exception as e:
+            bt.logging.error(f"An error occurred while fetching prompt: {e}")
+            c_prompt = None
         # Sync and update weights logic
         if step % 10 == 0:
             self.metagraph.sync(subtensor=self.subtensor)
@@ -115,7 +121,7 @@ class TextToSpeechService(AIModelService):
             new_scores = torch.zeros(size_difference, dtype=torch.float32)
             self.scores = torch.cat((self.scores, new_scores))
             del new_scores
-        g_prompts = self.load_prompts()
+        g_prompts = c_prompt if c_prompt else self.load_prompts()
         g_prompt = random.choice(g_prompts)
         while len(g_prompt) > 256:
             bt.logging.error(f'The length of current Prompt is greater than 256. Skipping current prompt.')
