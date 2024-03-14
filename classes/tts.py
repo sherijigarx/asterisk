@@ -17,7 +17,7 @@ import sys
 import wandb
 import datetime as dt
 import numpy as np
-from neurons.prompting import get_content
+from prompting import get_content
 # Set the project root path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 # Set the 'AudioSubnet' directory path
