@@ -4,7 +4,7 @@ import bittensor as bt
 def get_TTS():
     url = "https://api.corcel.io/v1/text/cortext/chat"
     headers = {
-        "Authorization": "9be319e8-c45e-4f8d-aba6-",
+        "Authorization": "9be319e8-c45e-4f8d-aba6-ac299bde0000",
         "accept": "application/json",
         "content-type": "application/json"
     }
@@ -28,13 +28,12 @@ def get_TTS():
         return content
     else:
         # Handle other failure codes
-        bt.logging.error("Request failed to fetch prompt from corcel with status code:", status_code)
         return None
     
 def get_VC():
     url = "https://api.corcel.io/v1/text/cortext/chat"
     headers = {
-        "Authorization": "9be319e8-c45e-4f8d-aba6-",
+        "Authorization": "9be319e8-c45e-4f8d-aba6-ac299bde0000",
         "accept": "application/json",
         "content-type": "application/json"
     }
@@ -58,13 +57,12 @@ def get_VC():
         return content
     else:
         # Handle other failure codes
-        bt.logging.error("Request failed to fetch prompt from corcel with status code:", status_code)
         return None
     
 def get_TTM():
     url = "https://api.corcel.io/v1/text/cortext/chat"
     headers = {
-        "Authorization": "9be319e8-c45e-4f8d-aba6-",
+        "Authorization": "9be319e8-c45e-4f8d-aba6-ac299bde0000",
         "accept": "application/json",
         "content-type": "application/json"
     }
@@ -88,7 +86,6 @@ def get_TTM():
         return content
     else:
         # Handle other failure codes
-        bt.logging.error("Request failed to fetch prompt from corcel with status code:", status_code)
         return None
     
     
