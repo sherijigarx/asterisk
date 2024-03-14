@@ -126,11 +126,11 @@ class TextToSpeechService(AIModelService):
 
         # Use the API prompt if available; otherwise, load prompts from HuggingFace
         if c_prompt:
-            bt.logging.info(f"Prompt are being used from API for TTS at Step: {step}")
+            bt.logging.info(f"--------------------------------- Prompt are being used from Corcel API for TTS at Step: {step} --------------------------------- ")
             g_prompt = c_prompt  # Use the prompt from the API
         else:
             # Fetch prompts from HuggingFace if API failed
-            bt.logging.info(f"Prompt are being used from HuggingFace Dataset for TTS at Step: {step}")
+            bt.logging.info(f"--------------------------------- Prompt are being used from HuggingFace Dataset for TTS at Step: {step} --------------------------------- ")
             g_prompts = self.load_prompts()
             g_prompt = random.choice(g_prompts)  # Choose a random prompt from HuggingFace
 

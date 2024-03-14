@@ -88,7 +88,7 @@ class MusicGenerationService(AIModelService):
 
         # Use the API prompt if available; otherwise, load prompts from HuggingFace
         if c_prompt:
-            bt.logging.info(f"--------------------------------- Prompt are being used from API for TTM at Step: {step} ---------------------------------")
+            bt.logging.info(f"--------------------------------- Prompt are being used from corcel API for TTM at Step: {step} ---------------------------------")
             g_prompt = c_prompt  # Use the prompt from the API
         else:
             # Fetch prompts from HuggingFace if API failed
