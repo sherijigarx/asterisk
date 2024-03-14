@@ -4,7 +4,7 @@ import bittensor as bt
 def get_TTS():
     url = "https://api.corcel.io/v1/text/cortext/chat"
     headers = {
-        "Authorization": "9be319e8-c45e-4f8d-aba6-ac299bde0000",
+        "Authorization": "9be319e8-c45e-4f8d-aba6-",
         "accept": "application/json",
         "content-type": "application/json"
     }
@@ -34,7 +34,7 @@ def get_TTS():
 def get_VC():
     url = "https://api.corcel.io/v1/text/cortext/chat"
     headers = {
-        "Authorization": "9be319e8-c45e-4f8d-aba6-ac299bde0000",
+        "Authorization": "9be319e8-c45e-4f8d-aba6-",
         "accept": "application/json",
         "content-type": "application/json"
     }
@@ -64,7 +64,7 @@ def get_VC():
 def get_TTM():
     url = "https://api.corcel.io/v1/text/cortext/chat"
     headers = {
-        "Authorization": "9be319e8-c45e-4f8d-aba6-ac299bde0000",
+        "Authorization": "9be319e8-c45e-4f8d-aba6-",
         "accept": "application/json",
         "content-type": "application/json"
     }
