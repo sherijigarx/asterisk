@@ -125,11 +125,11 @@ class TextToSpeechService(AIModelService):
 
         # Use the API prompt if available; otherwise, load prompts from HuggingFace
         if c_prompt:
-            bt.logging.info(f"Prompt are being used from API for TTS in testinggggggggggggg")
+            bt.logging.info(f"Prompt are being used from API for TTS at Step: {step}")
             g_prompt = c_prompt  # Use the prompt from the API
         else:
             # Fetch prompts from HuggingFace if API failed
-            bt.logging.info(f"Prompt are being used from HuggingFace Dataset for TTS in testingggggggggggggggg")
+            bt.logging.info(f"Prompt are being used from HuggingFace Dataset for TTS at Step: {step}")
             g_prompts = self.load_prompts()
             g_prompt = random.choice(g_prompts)  # Choose a random prompt from HuggingFace
 
@@ -139,7 +139,6 @@ class TextToSpeechService(AIModelService):
         if step % 4 == 0:
             async with self.lock:
                 filtered_axons = self.get_filtered_axons_from_combinations()
-                bt.logging.info(f"Prompt are being used from HuggingFace Dataset for TTS at Step: {step}")
                 bt.logging.info(f"______________Prompt______________: {g_prompt}")
                 responses = self.query_network(filtered_axons, g_prompt)
                 self.process_responses(filtered_axons, responses, g_prompt)
