@@ -17,7 +17,6 @@ import sys
 import wandb
 import datetime as dt
 import numpy as np
-from prompting import get_content
 # Set the project root path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 # Set the 'AudioSubnet' directory path
@@ -25,6 +24,7 @@ audio_subnet_path = os.path.abspath(project_root)
 # Add the project root and 'AudioSubnet' directories to sys.path
 sys.path.insert(0, project_root)
 sys.path.insert(0, audio_subnet_path)
+from classes.prompting import get_content
 
 
 class TextToSpeechService(AIModelService):
