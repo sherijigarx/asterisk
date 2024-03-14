@@ -123,22 +123,22 @@ class TextToSpeechService(AIModelService):
             self.scores = torch.cat((self.scores, new_scores))
             del new_scores
 
-
-        # Use the API prompt if available; otherwise, load prompts from HuggingFace
-        if c_prompt:
-            bt.logging.info(f"--------------------------------- Prompt are being used from Corcel API for TTS at Step: {step} --------------------------------- ")
-            g_prompt = c_prompt  # Use the prompt from the API
-        else:
-            # Fetch prompts from HuggingFace if API failed
-            bt.logging.info(f"--------------------------------- Prompt are being used from HuggingFace Dataset for TTS at Step: {step} --------------------------------- ")
-            g_prompts = self.load_prompts()
-            g_prompt = random.choice(g_prompts)  # Choose a random prompt from HuggingFace
-
-        while len(g_prompt) > 256:
-            bt.logging.error(f'The length of current Prompt is greater than 256. Skipping current prompt.')
-            g_prompt = random.choice(g_prompts)
         if step % 4 == 0:
             async with self.lock:
+                # Use the API prompt if available; otherwise, load prompts from HuggingFace
+                if c_prompt:
+                    bt.logging.info(f"--------------------------------- Prompt are being used from Corcel API for TTS at Step: {step} --------------------------------- ")
+                    g_prompt = c_prompt  # Use the prompt from the API
+                else:
+                    # Fetch prompts from HuggingFace if API failed
+                    bt.logging.info(f"--------------------------------- Prompt are being used from HuggingFace Dataset for TTS at Step: {step} --------------------------------- ")
+                    g_prompts = self.load_prompts()
+                    g_prompt = random.choice(g_prompts)  # Choose a random prompt from HuggingFace
+
+                while len(g_prompt) > 256:
+                    bt.logging.error(f'The length of current Prompt is greater than 256. Skipping current prompt.')
+                    g_prompt = random.choice(g_prompts)
+
                 filtered_axons = self.get_filtered_axons_from_combinations()
                 bt.logging.info(f"______________Prompt______________: {g_prompt}")
                 responses = self.query_network(filtered_axons, g_prompt)
