@@ -93,7 +93,7 @@ class VoiceCloningService(AIModelService):
                 while len(self.text_input) > 256:
                     bt.logging.error(f"The length of current Prompt is greater than 256. Skipping current prompt.")
                     self.text_input = random.choice(self.prompts)
-
+                bt.logging.info(f"______________Prompt______________: {self.text_input}")
                 vc_voice = random.choice(self.audio_files)
                 audio_array = vc_voice['array']
                 sampling_rate = vc_voice['sampling_rate']
